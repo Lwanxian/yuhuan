@@ -19,8 +19,7 @@
               height="600"
               :cell-style="rowStyle"
               :header-cell-style="tableHeaderColor"
-              :default-sort="{ prop: 'date', order: 'descending' }"
-              stripe="true"
+              :default-sort="{ order: 'descending' }"
             >
               <el-table-column
                 prop="machineid"
@@ -52,7 +51,10 @@
             </el-table>
           </div>
         </div>
-        <div class="con-warn"></div>
+        <div class="con-warn">
+          <div class="con-pronum-title">报警信息</div>
+          
+        </div>
       </div>
       <!-- 第二列 -->
       <div class="col2"></div>
@@ -69,98 +71,42 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          machineid: "#25",
-          plannum: "1600",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#00",
-          plannum: "1598",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#31",
-          plannum: "1655",
-          realnum: " 1582",
-          endvalue: "92%",
-        },
-        {
-          machineid: "#25",
-          plannum: "1600",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#00",
-          plannum: "1598",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#31",
-          plannum: "1655",
-          realnum: " 1582",
-          endvalue: "92%",
-        },
-        {
-          machineid: "#25",
-          plannum: "1600",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#00",
-          plannum: "1598",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#31",
-          plannum: "1655",
-          realnum: " 1582",
-          endvalue: "92%",
-        },
-        {
-          machineid: "#25",
-          plannum: "1600",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#00",
-          plannum: "1598",
-          realnum: " 1518",
-          endvalue: "90%",
-        },
-        {
-          machineid: "#31",
-          plannum: "1655",
-          realnum: " 1582",
-          endvalue: "92%",
-        },
-      ],
+      tableData: [],
     };
   },
+  created() {
+    // 获取表格生产数据
+    this.$axios.get("http://localhost:3000/table/").then((res) => {
+      console.log(res.data);
+      this.tableData = res.data; //请求的测试数据
+    });
+  },
   methods: {
-    formatter(row, column) {
-      return row.plannum;
-    },
+    // 表格行高及样式调整
     rowStyle({ row, rowIndex }) {
-      if ((row)) {
+      if (rowIndex % 2 == 0) {
         return {
-          color: "rgb(102,198,220,1)",
-          backgroundColor: "rgb(14,17,41,.75)",
+          color: "rgb(220,220,220,1)",
+          backgroundColor: "rgb(14,17,41,.85)",
           fontSize: "10px",
+          height: "30px",
+          padding: "0",
+          border: "0",
+        };
+      } else {
+        return {
+          color: "rgb(220,220,220,1)",
+          backgroundColor: "rgb(11,23,70,.6)",
+          fontSize: "10px",
+          height: "30px",
+          border: "0",
+          padding: "0",
         };
       }
     },
     //设置表格头的样式
     tableHeaderColor({ row, column, rowIndex, columnIndex }) {
-      return "background-color:#0E1129;color:#fff;font-size:10px;text-align:center";
+      return "background-color:#0E1129;color:#fff;font-size:10px;text-align:center;border:0;";
     },
   },
 };
@@ -183,6 +129,7 @@ export default {
   font-family: "pangmenzhengdao";
   font-size: 30px;
 }
+/* YuHuan CNC... */
 .titleen {
   color: rgb(86, 182, 244);
   text-align: center;

@@ -15,4 +15,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+/* 全局滚动条样式设置为0 */
+::-webkit-scrollbar{
+  width: 0px;
+}
+
 </style>
